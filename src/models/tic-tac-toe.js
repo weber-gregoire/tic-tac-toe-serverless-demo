@@ -3,9 +3,8 @@ const { Grid } = require('./grid');
 const PLAYERS_SYMBOLS = ['X', 'O'];
 
 function isComplete(cells) {
-  const contents = cells.map(cell => cell.innerText);
-  const distinctContents = Array.from(new Set(contents));
-  if (distinctContents.length === 1) {
+  const distinctContents = Array.from(new Set(cells));
+  if (distinctContents.length === 1 && distinctContents[0] !== '-') {
     return distinctContents[0];
   }
   return false;
@@ -13,9 +12,9 @@ function isComplete(cells) {
 
 function getWinner(rows) {
   const rowResults = rows.map(row => isComplete(row));
-  const positiveResults = rowResults.filter(result => result !== '-');
+  const positiveResults = rowResults.filter(result => !!result);
   if (positiveResults.length > 0) {
-    return positiveResults;
+    return positiveResults[0];
   }
   return undefined;
 }

@@ -60,7 +60,7 @@ const gameDao = {
       const params = {
         TableName: 'games',
         Key: { id: game.id },
-        UpdateExpression: 'set grid=:g, lastPlayer=:lp, winner=:w, gameOver=:go',
+        UpdateExpression: `set grid=:g, lastPlayer=:lp, ${gameData.winner ? 'winner=:w, ' : ''} gameOver=:go`,
         ExpressionAttributeValues: {
           ':g': gameData.grid,
           ':lp': gameData.lastPlayer,
@@ -69,7 +69,8 @@ const gameDao = {
         },
         ReturnValues: 'ALL_NEW',
       };
-      return await documentClient.update(params).promise();
+      const result = await documentClient.update(params).promise();
+      return new TicTacToe(result.Attributes);
     } catch (err) {
       throw new NestedError('Error while creating new game', err);
     }
