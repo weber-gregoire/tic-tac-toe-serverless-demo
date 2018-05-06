@@ -1,5 +1,4 @@
 const { Grid } = require('./grid');
-const uuid = require('node-uuid');
 
 const PLAYERS_SYMBOLS = ['X', 'O'];
 
@@ -10,6 +9,15 @@ function isComplete(cells) {
     return distinctContents[0];
   }
   return false;
+}
+
+function getWinner(rows) {
+  const rowResults = rows.map(row => isComplete(row));
+  const positiveResults = rowResults.filter(result => result !== '-');
+  if (positiveResults.length > 0) {
+    return positiveResults;
+  }
+  return undefined;
 }
 
 class TicTacToe {
@@ -39,9 +47,9 @@ class TicTacToe {
   }
 
   _updateStatus() {
-    this.winner = this._getWinner(this.grid.getRows()) ||
-      this._getWinner(this.grid.getColumns()) ||
-      this._getWinner(this.grid.getDiagonals());
+    this.winner = getWinner(this.grid.getRows()) ||
+      getWinner(this.grid.getColumns()) ||
+      getWinner(this.grid.getDiagonals());
 
     this.gameOver = !!this.winner || this._isGridComplete();
   }
@@ -54,15 +62,6 @@ class TicTacToe {
     return this.grid[x][y] === '-';
   }
 
-  _getWinner(rows) {
-    const rowResults = rows.map(row => isComplete(row));
-    const positiveResults = rowResults.filter(result => result !== '-');
-    if (positiveResults.length > 0) {
-      return positiveResults;
-    }
-    return undefined;
-  }
-
   _isGridComplete() {
     const completedRows = this.grid.getRows().filter((row) => {
       const usedCells = row.filter(cell => cell !== '-');
@@ -73,5 +72,5 @@ class TicTacToe {
 
 }
 
-module.exports = { TicTacToe, initialGame };
+module.exports = { TicTacToe };
 

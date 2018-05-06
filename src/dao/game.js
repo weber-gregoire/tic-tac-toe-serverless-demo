@@ -89,7 +89,7 @@ const gameDao = {
       await gameDao.createTableIfNotExists();
       const params = {
         TableName: 'games',
-        Key: { 'id': game.id },
+        Key: { id: game.id },
         Item: game,
       };
       return await documentClient.update(params).promise();
