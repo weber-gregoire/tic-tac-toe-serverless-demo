@@ -1,0 +1,30 @@
+service: tic-tac-toe-serverless-demo
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: dev
+  region: us-east-1
+  environment: ${file(./env.yml):${opt:stage, self:provider.stage}}
+
+package:
+  exclude:
+    - .git
+
+functions:
+
+  create-game:
+    handler: functions/create-game.handler
+
+  get-game-state:
+    handler: functions/get-game-state.handler
+
+  list-games:
+    handler: functions/list-games.handler
+
+  play:
+    handler: functions/play.handler
+
+plugins:
+  - serverless-dynamodb-local
+  - serverless-offline

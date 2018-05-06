@@ -1,0 +1,11 @@
+{
+  "extends": ["eslint-config-airbnb-base"],
+  "rules": {
+    "padded-blocks": ["error", { "classes": "always" }],
+    "func-names": ["off"],
+    "no-unused-vars": ["error", { "vars": "local", "args": "none" }],
+    "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+    "function-paren-newline": ["off"],
+    "import/prefer-default-export": ["off"]
+  }
+}
