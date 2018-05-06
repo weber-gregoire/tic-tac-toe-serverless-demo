@@ -1,5 +1,4 @@
 const { Grid } = require('./grid');
-const uuid = require('node-uuid');
 
 const PLAYERS_SYMBOLS = ['X', 'O'];
 
@@ -12,6 +11,15 @@ function isComplete(cells) {
   return false;
 }
 
+function getWinner(rows) {
+  const rowResults = rows.map(row => isComplete(row));
+  const positiveResults = rowResults.filter(result => result !== '-');
+  if (positiveResults.length > 0) {
+    return positiveResults;
+  }
+  return undefined;
+}
+
 class TicTacToe {
 
   constructor(options) {
@@ -22,49 +30,41 @@ class TicTacToe {
     this.gameOver = options.gameOver;
   }
 
-  isGameOver() {
-    return this._isAnyComplete(this.grid.getRows()) ||
-      this._isAnyComplete(this.grid.getColumns()) ||
-      this._isAnyComplete(this.grid.getDiagonals()) ||
-      this._isGridComplete();
-  }
-
   getCurrentPlayerSymbol() {
     return PLAYERS_SYMBOLS[(this.lastPlayer + 1) % 2];
   }
 
-  addMove(playerSymbol, coordinates) {
+  addMove(playerSymbol, { x, y }) {
     if (!this._isPlayerTurn(playerSymbol)) {
       throw new Error('It is not your turn to play');
-    } else if (!this._isValidMove(coordinates)) {
+    } else if (!this._isValidMove({ x, y })) {
       throw new Error('Invalid move');
     } else {
-      this.grid[coordinates.x][coordinates.y] = playerSymbol;
+      this.grid[x][y] = playerSymbol;
       this.lastPlayer = PLAYERS_SYMBOLS.indexOf(playerSymbol);
+      this._updateStatus();
     }
+  }
+
+  _updateStatus() {
+    this.winner = getWinner(this.grid.getRows()) ||
+      getWinner(this.grid.getColumns()) ||
+      getWinner(this.grid.getDiagonals());
+
+    this.gameOver = !!this.winner || this._isGridComplete();
   }
 
   _isPlayerTurn(playerSymbol) {
     return (PLAYERS_SYMBOLS[this.getCurrentPlayerSymbol()] === playerSymbol);
   }
 
-  _isValidMove(coordinates) {
-    return this.grid[coordinates.x][coordinates.y] === undefined;
-  }
-
-  _isAnyComplete(rows) {
-    const rowResults = rows.map(row => isComplete(row));
-    const positiveResults = rowResults.filter(result => !!result);
-    if (positiveResults.length > 0) {
-      [this.winner] = positiveResults;
-      return true;
-    }
-    return false;
+  _isValidMove({ x, y }) {
+    return this.grid[x][y] === '-';
   }
 
   _isGridComplete() {
     const completedRows = this.grid.getRows().filter((row) => {
-      const usedCells = row.filter(cell => !!cell);
+      const usedCells = row.filter(cell => cell !== '-');
       return usedCells.length === row.length;
     });
     return completedRows.length === this.grid.getRows().length;
@@ -72,5 +72,5 @@ class TicTacToe {
 
 }
 
-module.exports = { TicTacToe, initialGame };
+module.exports = { TicTacToe };
 

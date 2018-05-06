@@ -1,5 +1,4 @@
 const gameDao = require('../dao/game');
-const { Grid } = require('../models/grid');
 const uuid = require('node-uuid');
 
 const PLAYERS_SYMBOLS = ['X', 'O'];
@@ -15,14 +14,20 @@ const initialGame = {
   gameOver: false,
 };
 
-module.exports = {
+const gameService = {
 
   createGame: () => gameDao.createGame(initialGame),
 
   findGameById: gameId => gameDao.findGameById(gameId),
 
-  play: (gameId, playerSymbol, { x, y }) => {},
+  play: async (gameId, playerSymbol, coordinates) => {
+    const game = await gameService.findGameById(gameId);
+    game.addMove(playerSymbol, coordinates);
+    return gameDao.updateGame(game);
+  },
 
   getAllGames: () => gameDao.getAllGames(),
 
 };
+
+module.exports = gameService;
