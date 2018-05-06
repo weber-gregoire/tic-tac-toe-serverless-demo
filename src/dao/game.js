@@ -67,6 +67,7 @@ const gameDao = {
           ':w': gameData.winner,
           ':go': gameData.gameOver,
         },
+        ReturnValues: 'ALL_NEW',
       };
       return await documentClient.update(params).promise();
     } catch (err) {
