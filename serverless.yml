@@ -15,6 +15,11 @@ functions:
 
   create-game:
     handler: src/functions/create-game.handler
+    events:
+      - http:
+          path: /games
+          method: post
+          integration: lambda
 
   get-game-state:
     handler: src/functions/get-game-state.handler

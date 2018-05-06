@@ -35,8 +35,42 @@ const gameDao = {
     }
   },
 
-  createGame: (gameName) => {
-
+  createGame: async (initialGame) => {
+    try {
+      const params = {
+        ExpressionAttributeNames: {
+          '#G': 'grid',
+          '#LP': 'lastPlayer',
+          '#W': 'winner',
+          '#GO': 'gameOver',
+        },
+        ExpressionAttributeValues: {
+          ':g': {
+            S: JSON.stringify(initialGame.grid),
+          },
+          ':lp': {
+            S: initialGame.lastPlayer,
+          },
+          ':w': {
+            S: initialGame.winner,
+          },
+          ':go': {
+            BOOL: initialGame.gaomeOver,
+          },
+        },
+        Key: {
+          id: {
+            S: initialGame.id,
+          },
+        },
+        ReturnValues: 'ALL_NEW',
+        TableName: 'games',
+        UpdateExpression: 'SET #G = :g, #LP = :lp, #W = :w, #GO = :go',
+      };
+      return await dynamoDB.updateItem(params).promise();
+    } catch (err) {
+      throw new NestedError('Error while creating new game', err);
+    }
   },
 
   getAllActiveGames: async () => {
@@ -61,7 +95,7 @@ const gameDao = {
 
   updateGame: (game) => {
 
-  }
+  },
 
 };
 
