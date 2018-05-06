@@ -1,5 +1,5 @@
 const { successHandler, serverErrorHandler } = require('../utils/handlers-helper');
-const { getAllGames } = require('../dao/game');
+const { getAllGames } = require('../services/game');
 
 // noinspection JSUnusedGlobalSymbols
 module.exports.handler = async (event, context, callback) => {

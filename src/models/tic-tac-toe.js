@@ -72,17 +72,5 @@ class TicTacToe {
 
 }
 
-const initialGame = {
-  id: uuid.v4(),
-  grid: [
-    ['-', '-', '-'],
-    ['-', '-', '-'],
-    ['-', '-', '-'],
-  ],
-  lastPlayer: PLAYERS_SYMBOLS[1],
-  winner: undefined,
-  gameOver: false,
-};
-
 module.exports = { TicTacToe, initialGame };
 

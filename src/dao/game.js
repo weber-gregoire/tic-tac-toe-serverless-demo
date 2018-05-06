@@ -44,7 +44,8 @@ const gameDao = {
         TableName: 'games',
         Item: initialGame,
       };
-      return await documentClient.put(params).promise();
+      await documentClient.put(params).promise();
+      return initialGame;
     } catch (err) {
       throw new NestedError('Error while creating new game', err);
     }
