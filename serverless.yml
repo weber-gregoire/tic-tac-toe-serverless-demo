@@ -14,7 +14,12 @@ package:
 functions:
 
   create-game:
-    handler: functions/create-game.handler
+    handler: src/functions/create-game.handler
+    events:
+      - http:
+          path: /games
+          method: post
+          integration: lambda
 
   get-game-state:
     handler: functions/get-game-state.handler
