@@ -18,6 +18,7 @@ functions:
     events:
       - http:
           path: /games
+          cors: true
           method: post
           integration: lambda
 
@@ -26,6 +27,7 @@ functions:
     events:
       - http:
           path: /games/{gameId}
+          cors: true
           method: get
           integration: lambda
 
@@ -34,6 +36,7 @@ functions:
     events:
       - http:
           path: /games
+          cors: true
           method: get
           integration: lambda
 
@@ -42,6 +45,7 @@ functions:
     events:
       - http:
           path: /games/{gameId}
+          cors: true
           method: post
           integration: lambda
 
