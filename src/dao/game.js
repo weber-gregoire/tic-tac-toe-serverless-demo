@@ -55,11 +55,18 @@ const gameDao = {
   },
 
   updateGame: async (game) => {
+    const gameData = game.toJSON();
     try {
       const params = {
         TableName: 'games',
         Key: { id: game.id },
-        Item: game.toJSON(),
+        UpdateExpression: 'set grid=:g, lastPlayer=:lp, winner=:w, gameOver=:go',
+        ExpressionAttributeValues: {
+          ':g': gameData.grid,
+          ':lp': gameData.lastPlayer,
+          ':w': gameData.winner,
+          ':go': gameData.gameOver,
+        },
       };
       return await documentClient.update(params).promise();
     } catch (err) {

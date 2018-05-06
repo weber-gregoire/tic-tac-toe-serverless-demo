@@ -31,7 +31,7 @@ class TicTacToe {
   }
 
   getCurrentPlayerSymbol() {
-    const lastPlayerSymbolIndex = PLAYERS_SYMBOLS.indexOf(this.lastPlayer)
+    const lastPlayerSymbolIndex = PLAYERS_SYMBOLS.indexOf(this.lastPlayer);
     return PLAYERS_SYMBOLS[(lastPlayerSymbolIndex + 1) % 2];
   }
 
@@ -42,7 +42,7 @@ class TicTacToe {
       throw new Error('Invalid move');
     } else {
       this.grid.set(coordinates, playerSymbol);
-      this.lastPlayer = PLAYERS_SYMBOLS.indexOf(playerSymbol);
+      this.lastPlayer = playerSymbol;
       this._updateStatus();
     }
   }
