@@ -13,11 +13,11 @@ class Grid {
   }
 
   get({ x, y }) {
-    return this._rows[x][y];
+    return this._rows[y][x];
   }
 
   set({ x, y }, symbol) {
-    this._rows[x][y] = symbol;
+    this._rows[y][x] = symbol;
   }
 
   getDiagonals() {
