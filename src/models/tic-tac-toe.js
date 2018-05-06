@@ -31,19 +31,24 @@ class TicTacToe {
   }
 
   getCurrentPlayerSymbol() {
-    return PLAYERS_SYMBOLS[(this.lastPlayer + 1) % 2];
+    const lastPlayerSymbolIndex = PLAYERS_SYMBOLS.indexOf(this.lastPlayer)
+    return PLAYERS_SYMBOLS[(lastPlayerSymbolIndex + 1) % 2];
   }
 
-  addMove(playerSymbol, { x, y }) {
+  addMove(playerSymbol, coordinates) {
     if (!this._isPlayerTurn(playerSymbol)) {
       throw new Error('It is not your turn to play');
-    } else if (!this._isValidMove({ x, y })) {
+    } else if (!this._isValidMove(coordinates)) {
       throw new Error('Invalid move');
     } else {
-      this.grid[x][y] = playerSymbol;
+      this.grid.set(coordinates, playerSymbol);
       this.lastPlayer = PLAYERS_SYMBOLS.indexOf(playerSymbol);
       this._updateStatus();
     }
+  }
+
+  toJSON() {
+    return Object.assign({}, this, { grid: this.grid.getRows() });
   }
 
   _updateStatus() {
@@ -55,11 +60,11 @@ class TicTacToe {
   }
 
   _isPlayerTurn(playerSymbol) {
-    return (PLAYERS_SYMBOLS[this.getCurrentPlayerSymbol()] === playerSymbol);
+    return (this.getCurrentPlayerSymbol() === playerSymbol);
   }
 
-  _isValidMove({ x, y }) {
-    return this.grid[x][y] === '-';
+  _isValidMove(coordinates) {
+    return this.grid.get(coordinates) === '-';
   }
 
   _isGridComplete() {

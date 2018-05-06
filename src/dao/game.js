@@ -57,11 +57,10 @@ const gameDao = {
 
   updateGame: async (game) => {
     try {
-      await gameDao.createTableIfNotExists();
       const params = {
         TableName: 'games',
         Key: { id: game.id },
-        Item: game,
+        Item: game.toJSON(),
       };
       return await documentClient.update(params).promise();
     } catch (err) {
