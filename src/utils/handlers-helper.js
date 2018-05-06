@@ -2,11 +2,7 @@ const NestedError = require('nested-error-stacks');
 
 module.exports.successHandler = function (callback) {
   return (result) => {
-    const response = {
-      statusCode: 200,
-      body: JSON.stringify({ result }),
-    };
-    callback(null, response);
+    callback(null, result);
   };
 };
 

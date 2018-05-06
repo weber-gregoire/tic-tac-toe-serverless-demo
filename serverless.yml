@@ -3,7 +3,7 @@ service: tic-tac-toe-serverless-demo
 provider:
   name: aws
   runtime: nodejs8.10
-  stage: dev
+  stage: local
   region: us-east-1
   environment: ${file(./env.yml):${opt:stage, self:provider.stage}}
 
@@ -14,13 +14,18 @@ package:
 functions:
 
   create-game:
-    handler: functions/create-game.handler
+    handler: src/functions/create-game.handler
 
   get-game-state:
-    handler: functions/get-game-state.handler
+    handler: src/functions/get-game-state.handler
 
   list-games:
-    handler: functions/list-games.handler
+    handler: src/functions/list-games.handler
+    events:
+      - http:
+          path: /games
+          method: get
+          integration: lambda
 
   play:
     handler: functions/play.handler
