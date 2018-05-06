@@ -21,7 +21,11 @@ module.exports = {
 
   findGameById: gameId => gameDao.findGameById(gameId),
 
-  play: (gameId, playerSymbol, { x, y }) => {},
+  play: async (gameId, playerSymbol, coordinates) => {
+    const game = await findGameById(gameId);
+    game.addMove(playerSymbol, coordinates);
+    return await gameDao.updateGame(game);
+  },
 
   getAllGames: () => gameDao.getAllGames(),
 
