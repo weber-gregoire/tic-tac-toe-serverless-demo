@@ -62,7 +62,8 @@ const gameDao = {
           ':gameOver': false,
         },
       };
-      return await documentClient.scan(params).promise().map(game => new TicTacToe(game));
+      const gamesData = await documentClient.scan(params).promise();
+      return gamesData.Items.map(game => new TicTacToe(game));
     } catch (err) {
       throw new NestedError('Error while getting all active games', err);
     }
