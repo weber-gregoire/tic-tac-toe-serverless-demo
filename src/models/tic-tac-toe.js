@@ -15,7 +15,7 @@ function isComplete(cells) {
 class TicTacToe {
 
   constructor(tictactoeData) {
-    this.id = tictactoeData.id || uuid.v4();
+    this.id = tictactoeData.id;
     this.grid = new Grid(tictactoeData.grid);
     this.lastPlayer = tictactoeData.lastPlayer;
     this.winner = tictactoeData.winner;
@@ -73,6 +73,7 @@ class TicTacToe {
 }
 
 const initialGame = {
+  id: uuid.v4(),
   grid: [
     [undefined, undefined, undefined],
     [undefined, undefined, undefined],
@@ -80,6 +81,7 @@ const initialGame = {
   ],
   lastPlayer: PLAYERS_SYMBOLS[1],
   winner: undefined,
+  gameOver: false,
 };
 
 module.exports = { TicTacToe, initialGame };

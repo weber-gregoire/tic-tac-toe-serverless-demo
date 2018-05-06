@@ -1,5 +1,5 @@
 const { successHandler, serverErrorHandler } = require('../utils/handlers-helper');
-const { initialGame } = require('../models/ticTacToe');
+const { initialGame } = require('../models/tic-tac-toe');
 const { createGame } = require('../dao/game');
 
 // noinspection JSUnusedGlobalSymbols
