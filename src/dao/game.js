@@ -32,8 +32,8 @@ const gameDao = {
         },
         ProjectionExpression: 'id',
       };
-      const gamesData = await documentClient.scan(params).promise();
-      return gamesData.Items.map(game => new TicTacToe(game));
+      const result = await documentClient.scan(params).promise();
+      return result.Items;
     } catch (err) {
       throw new NestedError('Error while getting all games', err);
     }
