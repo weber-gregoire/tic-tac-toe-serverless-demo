@@ -53,7 +53,7 @@ class TicTacToe {
   }
 
   _isAnyComplete(rows) {
-    const rowResults = rows.map(row => this._isComplete(row));
+    const rowResults = rows.map(row => isComplete(row));
     const positiveResults = rowResults.filter(result => !!result);
     if (positiveResults.length > 0) {
       [this.winner] = positiveResults;

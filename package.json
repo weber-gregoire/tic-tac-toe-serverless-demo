@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "nested-error-stacks": "^2.0.0",
-    "node-uuid": "^1.4.8"
+    "node-uuid": "^1.4.8",
+    "winston": "^2.4.2"
   }
 }

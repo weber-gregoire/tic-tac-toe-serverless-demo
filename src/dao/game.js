@@ -1,6 +1,7 @@
 /* eslint import/no-extraneous-dependencies: "off" */
 const { DynamoDB } = require('aws-sdk');
 const NestedError = require('nested-error-stacks');
+const logger = require('../utils/logger');
 const dynamoDbConfig = require('../config').aws.dynamodb;
 
 const dynamoDB = new DynamoDB(dynamoDbConfig);
@@ -9,7 +10,7 @@ const documentClient = new DynamoDB.DocumentClient({ service: dynamoDB });
 const gameDao = {
 
   createTableIfNotExists: async () => {
-    console.log('Creating \'games\' table...');
+    logger.info('Creating \'games\' table...');
     try {
       const params = {
         TableName: 'games',
@@ -25,12 +26,12 @@ const gameDao = {
         },
       };
       await dynamoDB.createTable(params).promise();
-      console.log('Table successfully created!');
-      return;
+      logger.info('Table successfully created!');
     } catch (err) {
       if (err.code === 'ResourceInUseException' && err.message === 'Cannot create preexisting table') {
-        console.log('Table already exists');
+        logger.info('Table already exists');
       } else {
+        logger.error(err);
         throw new NestedError('Unable to create \'games\' table.', err);
       }
     }
