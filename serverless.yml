@@ -38,7 +38,12 @@ functions:
           integration: lambda
 
   play:
-    handler: functions/play.handler
+    handler: src/functions/play.handler
+    events:
+      - http:
+          path: /games/{gameId}
+          method: post
+          integration: lambda
 
 plugins:
   - serverless-dynamodb-local
