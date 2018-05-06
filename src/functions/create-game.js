@@ -5,8 +5,8 @@ const { createGame } = require('../services/game');
 module.exports.handler = async (event, context, callback) => {
   try {
     const result = await createGame();
-    await successHandler(callback)(result);
+    successHandler(callback)(result);
   } catch (err) {
-    await serverErrorHandler(callback)(err);
+    serverErrorHandler(callback)(err);
   }
 };

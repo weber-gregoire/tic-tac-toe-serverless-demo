@@ -4,7 +4,7 @@ provider:
   name: aws
   runtime: nodejs8.10
   stage: local
-  region: us-east-1
+  region: ${file(./env.yml):${opt:stage, self:provider.stage}.AWS_REGION_CODE}
   environment: ${file(./env.yml):${opt:stage, self:provider.stage}}
 
 package:
@@ -45,6 +45,43 @@ functions:
           method: post
           integration: lambda
 
+resources:
+  Resources:
+    DynamoDbTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: games
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
+    DynamoDBIamPolicy:
+      Type: AWS::IAM::Policy
+      DependsOn: DynamoDbTable
+      Properties:
+        PolicyName: lambda-dynamodb
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:GetItem
+                - dynamodb:PutItem
+                - dynamodb:Scan
+              Resource: arn:aws:dynamodb:*:*:table/games
+        Roles:
+          - Ref: IamRoleLambdaExecution
+
 plugins:
   - serverless-dynamodb-local
   - serverless-offline
+
+custom:
+  dynamodb:
+    start:
+      migrate: true

@@ -7,11 +7,11 @@ module.exports.handler = async (event, context, callback) => {
   try {
     const game = await findGameById(gameId);
     if (game) {
-      await successHandler(callback)(game);
+      successHandler(callback)(game);
     } else {
       clientErrorHandler(callback)(new Error(`Unknown game ${gameId}`));
     }
   } catch (err) {
-    await serverErrorHandler(callback)(err);
+    serverErrorHandler(callback)(err);
   }
 };

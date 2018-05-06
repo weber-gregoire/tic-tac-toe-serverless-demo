@@ -5,7 +5,9 @@
   "main": "handler.js",
   "scripts": {
     "lint": "eslint .",
-    "start": "serverless offline start --watch"
+    "start": "serverless offline start --watch",
+    "package": "serverless package -s",
+    "deploy": "serverless deploy -s"
   },
   "repository": {
     "type": "git",

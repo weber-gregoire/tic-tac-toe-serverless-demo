@@ -9,37 +9,8 @@ const documentClient = new DynamoDB.DocumentClient({ service: dynamoDB });
 
 const gameDao = {
 
-  createTableIfNotExists: async () => {
-    logger.info('Creating \'games\' table...');
-    try {
-      const params = {
-        TableName: 'games',
-        KeySchema: [
-          { AttributeName: 'id', KeyType: 'HASH' },
-        ],
-        AttributeDefinitions: [
-          { AttributeName: 'id', AttributeType: 'S' },
-        ],
-        ProvisionedThroughput: {
-          ReadCapacityUnits: 10,
-          WriteCapacityUnits: 10,
-        },
-      };
-      await dynamoDB.createTable(params).promise();
-      logger.info('Table successfully created!');
-    } catch (err) {
-      if (err.code === 'ResourceInUseException' && err.message === 'Cannot create preexisting table') {
-        logger.info('Table already exists');
-      } else {
-        logger.error(err);
-        throw new NestedError('Unable to create \'games\' table.', err);
-      }
-    }
-  },
-
   createGame: async (initialGame) => {
     try {
-      await gameDao.createTableIfNotExists();
       const params = {
         TableName: 'games',
         Item: initialGame,
@@ -53,23 +24,22 @@ const gameDao = {
 
   getAllGames: async () => {
     try {
-      await gameDao.createTableIfNotExists();
       const params = {
         TableName: 'games',
         FilterExpression: 'gameOver = :gameOver',
         ExpressionAttributeValues: {
           ':gameOver': false,
         },
+        ProjectionExpression: 'id',
       };
       return await documentClient.scan(params).promise();
     } catch (err) {
-      throw new NestedError('Error while getting all active games', err);
+      throw new NestedError('Error while getting all games', err);
     }
   },
 
   findGameById: async (gameId) => {
     try {
-      await gameDao.createTableIfNotExists();
       const params = {
         TableName: 'games',
         Key: {
