@@ -75,9 +75,9 @@ class TicTacToe {
 const initialGame = {
   id: uuid.v4(),
   grid: [
-    [undefined, undefined, undefined],
-    [undefined, undefined, undefined],
-    [undefined, undefined, undefined],
+    ['-', '-', '-'],
+    ['-', '-', '-'],
+    ['-', '-', '-'],
   ],
   lastPlayer: PLAYERS_SYMBOLS[1],
   winner: undefined,
