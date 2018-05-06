@@ -1,7 +1,6 @@
 /* eslint import/no-extraneous-dependencies: "off" */
 const { DynamoDB } = require('aws-sdk');
 const NestedError = require('nested-error-stacks');
-const logger = require('../utils/logger');
 const dynamoDbConfig = require('../config').aws.dynamodb;
 const { TicTacToe } = require('../models/tic-tac-toe');
 
