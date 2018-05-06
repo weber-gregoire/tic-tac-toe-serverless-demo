@@ -14,12 +14,12 @@ function isComplete(cells) {
 
 class TicTacToe {
 
-  constructor(tictactoeData) {
-    this.id = tictactoeData.id;
-    this.grid = new Grid(tictactoeData.grid);
-    this.lastPlayer = tictactoeData.lastPlayer;
-    this.winner = tictactoeData.winner;
-    this.gameOver = tictactoeData.gameOver;
+  constructor(options) {
+    this.id = options.id;
+    this.grid = new Grid(options.grid);
+    this.lastPlayer = options.lastPlayer;
+    this.winner = options.winner;
+    this.gameOver = options.gameOver;
   }
 
   isGameOver() {
