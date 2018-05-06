@@ -4,7 +4,7 @@ module.exports = {
 
   findGameById: () => {},
 
-  play: (gameId, playerSymbol, { x, y }) => {},
+  play: async (gameId, playerSymbol, { x, y }) => {},
 
   getAllGames: () => {},
 
