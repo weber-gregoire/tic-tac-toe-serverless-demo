@@ -21,8 +21,13 @@ functions:
           method: post
           integration: lambda
 
-  get-game-state:
-    handler: src/functions/get-game-state.handler
+  get-game:
+    handler: src/functions/get-game.handler
+    events:
+      - http:
+          path: /games/{gameId}
+          method: get
+          integration: lambda
 
   list-games:
     handler: src/functions/list-games.handler

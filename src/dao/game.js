@@ -65,8 +65,19 @@ const gameDao = {
     }
   },
 
-  findGameById: (gameId) => {
-
+  findGameById: async (gameId) => {
+    try {
+      await gameDao.createTableIfNotExists();
+      const params = {
+        TableName: 'games',
+        Key: {
+          id: gameId,
+        },
+      };
+      return (await documentClient.get(params).promise()).Item;
+    } catch (err) {
+      throw new NestedError(`Error while getting game ${gameId}`, err);
+    }
   },
 
   updateGame: (game) => {
