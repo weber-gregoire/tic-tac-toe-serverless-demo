@@ -3,8 +3,8 @@ service: tic-tac-toe-serverless-demo
 provider:
   name: aws
   runtime: nodejs8.10
-  stage: dev
-  region: us-east-1
+  stage: local
+  region: localhost
   environment: ${file(./env.yml):${opt:stage, self:provider.stage}}
 
 package:

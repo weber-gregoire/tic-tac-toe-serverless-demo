@@ -18,7 +18,7 @@ module.exports = {
         },
         ExpressionAttributeValues: {
           ':g': {
-            SS: initialGame.grid,
+            S: JSON.stringify(initialGame.grid),
           },
           ':lp': {
             S: initialGame.lastPlayer,
