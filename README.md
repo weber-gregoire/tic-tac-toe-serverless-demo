@@ -1,6 +1,7 @@
 # Serverless Tic Tac Toe
-Simple Tic Tac Toe application used to show what can be done with serverless framework.
-The app let you create new games and play with another person.
+Simple Tic Tac Toe application used to show what can be done with serverless framework.\
+This app was created to be used as a live demo during a DevOps meetup.\
+The presentation can be found [here on slideshare][0]
 
 ## Setup
 `npm install`
@@ -75,3 +76,5 @@ response :
     "gameOver": false
 }
 ```
+
+[0]: https://www.slideshare.net/bargenson/serverless-applications-96528705/bargenson/serverless-applications-96528705
