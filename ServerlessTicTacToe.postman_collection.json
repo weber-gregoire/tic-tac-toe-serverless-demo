@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "518b64a4-08ff-4d7c-a454-5e1c9e59962e",
+		"name": "Serverless TicTacToe",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Local - List games",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"playerSymbol\": \"X\",\n\t\"coordinates\": {\n\t\t\"x\": 0,\n\t\t\"y\": 0\n\t}\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/games/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"games",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Local - Create new game",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3000/games/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"games",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Local - Get game state",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"playerSymbol\": \"X\",\n\t\"coordinates\": {\n\t\t\"x\": 0,\n\t\t\"y\": 0\n\t}\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/games/{gameId}",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"games",
+						"{gameId}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Local - Play move",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"playerSymbol\": \"X\",\n\t\"coordinates\": {\n\t\t\"x\": 0,\n\t\t\"y\": 0\n\t}\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/games/{gameId}",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"games",
+						"{gameId}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
